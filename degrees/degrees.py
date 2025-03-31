@@ -108,7 +108,7 @@ def shortest_path(source, target):
 
     while True:
         if frontier.empty():
-            raise Exception("No degree available")
+            return None
 
         node = frontier.remove()
         explored.add(node.state)
