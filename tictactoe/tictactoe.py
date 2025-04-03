@@ -50,6 +50,7 @@ def actions(board):
     """
     Returns set of all possible actions (i, j) available on the board.
     """
+    # If there is an empty spot on the board, return it in a set
     options = set()
     for i in range(len(board)):
         for j in range(len(board[i])):
@@ -64,11 +65,13 @@ def result(board, action):
     """
     # First, raise error if the action is for a previously filled spot
     if action not in actions(board):
-        return None
+        raise Exception("Spot taken")
+    # Deep copies as sets cannot be manipulated
     resulting_board = copy.deepcopy(board)
     row = action[0]
     column = action[1]
 
+    # sets chosen spot equal to the current player's symbol
     resulting_board[row][column] = player(board)
     return resulting_board
 
@@ -113,6 +116,7 @@ def terminal(board):
     elif winner(board) == "O":
         return True
 
+    # If there is an empty spot, then the game is not over
     for row in board:
         for column in row:
             if column == None:
